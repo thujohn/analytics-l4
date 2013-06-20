@@ -1,0 +1,22 @@
+{
+    "name": "thujohn/analytics",
+    "description": "Google Analytics for Laravel 4",
+	"keywords": ["analytics", "laravel", "laravel4"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan Thuau",
+            "email": "jonathan.thuau@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "bitgandtter/google-api": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Thujohn\\Analytics": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
