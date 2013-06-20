@@ -2,6 +2,8 @@
 
 Port of Laravel 3 bundle [lordcoste/analytics-s2s](https://github.com/lordcoste/analytics-s2s) for Laravel 4
 
+[![Build Status](https://travis-ci.org/thujohn/analytics-l4.png?branch=master)](https://travis-ci.org/thujohn/analytics-l4)
+
 
 ## Requirements
 
