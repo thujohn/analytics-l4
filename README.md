@@ -5,15 +5,6 @@ Port of Laravel 3 bundle [lordcoste/analytics-s2s](https://github.com/lordcoste/
 [![Build Status](https://travis-ci.org/thujohn/analytics-l4.png?branch=master)](https://travis-ci.org/thujohn/analytics-l4)
 
 
-## Requirements
-
-You need [bitgandtter/google-api](https://github.com/bitgandtter/google-api)
-
-Update your composer.json with :
-
-    "bitgandtter/google-api": "dev-master"
-
-
 ## Installation
 
 Add `thujohn/analytics` to `composer.json`.
