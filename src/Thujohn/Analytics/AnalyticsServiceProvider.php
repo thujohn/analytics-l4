@@ -19,11 +19,6 @@ class AnalyticsServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('thujohn/analytics');
-
-		if(!\File::exists($this->app['config']->get('analytics::certificate_path')))
-		{
-			throw new \Exception("Can't find the .p12 certificate in: " . $this->app['config']->get('analytics::certificate_path'));
-		}
 	}
 
 	/**
@@ -35,10 +30,16 @@ class AnalyticsServiceProvider extends ServiceProvider {
 	{
 		$this->app['analytics'] = $this->app->share(function($app)
 		{
+			if(!\File::exists($app['config']->get('analytics::certificate_path')))
+			{
+				throw new \Exception("Can't find the .p12 certificate in: " . $app['config']->get('analytics::certificate_path'));
+			}
+
 			$config = array(
 				'oauth2_client_id' => $app['config']->get('analytics::client_id'),
 				'use_objects' => $app['config']->get('analytics::use_objects'),
 			);
+
 			$client = new \Google_Client($config);
 
 			$client->setAccessType('offline');
