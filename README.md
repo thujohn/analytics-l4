@@ -24,3 +24,8 @@ Now add the alias.
     'aliases' => array(
         'Analytics' => 'Thujohn\Analytics\AnalyticsFacade',
     )
+
+
+## Configuration
+
+Run `php artisan config:publish thujohn/analytics` and modify the config file with your own informations.
