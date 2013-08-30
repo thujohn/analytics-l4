@@ -1,7 +1,7 @@
 {
     "name": "thujohn/analytics",
     "description": "Google Analytics for Laravel 4",
-	"keywords": ["analytics", "laravel", "laravel4"],
+	"keywords": ["google", "analytics", "laravel", "laravel4"],
     "license": "MIT",
     "authors": [
         {
