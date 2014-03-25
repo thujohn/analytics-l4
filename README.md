@@ -29,3 +29,13 @@ Now add the alias.
 ## Configuration
 
 Run `php artisan config:publish thujohn/analytics` and modify the config file with your own informations.
+
+## Usage
+Querying the API for visits and pageviews in the last week.
+
+More information about this calling the Google Analytics API can be found here https://developers.google.com/apis-explorer/#s/analytics/v3/analytics.data.ga.get
+```php
+$site_id = Analytics::getSiteIdByUrl('http://github.com/'); // return something like 'ga:11111111'
+
+$stats = Analytics::query($siteID, '7daysAgo', 'yesterday', 'ga:visits,ga:pageviews');
+```
