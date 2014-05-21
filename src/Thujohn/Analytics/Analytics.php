@@ -25,7 +25,7 @@ class Analytics {
 	}
 
 	public function setService(\Google_Client $client) {
-		$this->service = new \Google_AnalyticsService($client);
+		$this->service = new \Google_Service_Analytics($client);
 
 		return $this;
 	}
@@ -56,15 +56,9 @@ class Analytics {
 
 	public function getAllSitesIds() {
 		if (empty($this->site_ids)) {
-			if ($this->service->management_webproperties->useObjects()) {
-				foreach($this->service->management_profiles->listManagementProfiles("~all", "~all")->getItems() as $site){
-					$this->site_ids[$site->websiteUrl] = 'ga:' . $site->id;
-				}
-			}else{
-				$sites = $this->service->management_profiles->listManagementProfiles("~all", "~all");
-				foreach($sites['items'] as $site) {
-					$this->site_ids[$site['websiteUrl']] = 'ga:' . $site['id'];
-				}
+			$sites = $this->service->management_profiles->listManagementProfiles("~all", "~all");
+			foreach($sites['items'] as $site) {
+				$this->site_ids[$site['websiteUrl']] = 'ga:' . $site['id'];
 			}
 		}
 
