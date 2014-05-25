@@ -45,7 +45,7 @@ class AnalyticsServiceProvider extends ServiceProvider {
 			$client->setAccessType('offline');
 
 			$client->setAssertionCredentials(
-				new \Google_AssertionCredentials(
+				new \Google_Auth_AssertionCredentials(
 					$app['config']->get('analytics::service_email'),
 					array('https://www.googleapis.com/auth/analytics.readonly'),
 					file_get_contents($app['config']->get('analytics::certificate_path'))
