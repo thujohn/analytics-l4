@@ -38,5 +38,5 @@ A list of all Google Analytics metrics can be found here https://developers.goog
 ```php
 $site_id = Analytics::getSiteIdByUrl('http://github.com/'); // return something like 'ga:11111111'
 
-$stats = Analytics::query($siteID, '7daysAgo', 'yesterday', 'ga:visits,ga:pageviews');
+$stats = Analytics::query($site_id, '7daysAgo', 'yesterday', 'ga:visits,ga:pageviews');
 ```
