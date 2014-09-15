@@ -34,6 +34,45 @@ class Analytics {
 		return $this->service->data_ga->get($id, $start_date, $end_date, $metrics, $others);
 	}
 
+    /**
+     * Runs analytics query calls in batch mode
+     * It accepts an array of queries as specified by the parameters of the Analytics::query function
+     * With an additional optional parameter named key, which is used to identify the results for a specific object
+     *
+     * Returns an array with object keys as response-KEY where KEY is the key you specified or a random key returned
+     * from analytics.
+     * @param array $queries
+     * @return array|null
+     */
+    public function batchQueries(array $queries) {
+
+        /*
+         * Set the client to use batch mode
+         * When batch mode is activated calls to Analytics::query will return
+         * the request object instead of the resulting data
+         */
+        $this->client->setUseBatch(true);
+
+        $batch = new \Google_Http_Batch($this->client);
+        foreach ($queries as $query) {
+
+            // pull the key from the array if specified so we can later identify our result
+            $key = array_pull($query, 'key');
+
+            // call the original query method to get the request object
+            $req = call_user_func_array(__NAMESPACE__ .'\Analytics::query' ,$query);
+
+            $batch->add($req, $key);
+        }
+
+        $results = $batch->execute();
+
+        // Set the client back to normal mode
+        $this->client->setUseBatch(false);
+
+        return $results;
+    }
+
 	public function segments() {
 		return $this->service->management_segments;
 	}
