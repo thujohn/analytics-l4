@@ -28,8 +28,7 @@ class AnalyticsServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['analytics'] = $this->app->share(function($app)
-		{
+		$this->app->bind('Thujohn\Analytics\Analytics', function ($app) {
 			if(!\File::exists($app['config']->get('analytics::certificate_path')))
 			{
 				throw new \Exception("Can't find the .p12 certificate in: " . $app['config']->get('analytics::certificate_path'));
@@ -54,6 +53,8 @@ class AnalyticsServiceProvider extends ServiceProvider {
 
 			return new Analytics($client);
 		});
+
+		$this->app->singleton('analytics', 'Thujohn\Analytics\Analytics');
 	}
 
 	/**
