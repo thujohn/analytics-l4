@@ -97,7 +97,7 @@ class Analytics {
 		if (empty($this->site_ids)) {
 			$sites = $this->service->management_profiles->listManagementProfiles("~all", "~all");
 			foreach($sites['items'] as $site) {
-				$this->site_ids[$site['websiteUrl']] = 'ga:' . $site['id'];
+				$this->site_ids[] = array('id' => 'ga:' . $site['id'], 'url' => $site['websiteUrl']);
 			}
 		}
 
