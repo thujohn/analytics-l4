@@ -1,50 +1,62 @@
-<?php namespace Thujohn\Analytics;
+<?php
 
-class Analytics {
-	protected $client;
-	protected $service;
-	private $site_ids = array();
+namespace Thujohn\Analytics;
 
-	public function __construct(\Google_Client $client) {
-		$this->setClient($client);
-		$this->setService($client);
-	}
+class Analytics
+{
+    protected $client;
+    protected $service;
+    private $site_ids = [];
 
-	public function getClient() {
-		return $this->client;
-	}
+    public function __construct(\Google_Client $client)
+    {
+        $this->setClient($client);
+        $this->setService($client);
+    }
 
-	public function setClient(\Google_Client $client) {
-		$this->client = $client;
+    public function getClient()
+    {
+        return $this->client;
+    }
 
-		return $this;
-	}
+    public function setClient(\Google_Client $client)
+    {
+        $this->client = $client;
 
-	public function getService() {
-		return $this->service;
-	}
+        return $this;
+    }
 
-	public function setService(\Google_Client $client) {
-		$this->service = new \Google_Service_Analytics($client);
+    public function getService()
+    {
+        return $this->service;
+    }
 
-		return $this;
-	}
+    public function setService(\Google_Client $client)
+    {
+        $this->service = new \Google_Service_Analytics($client);
 
-	public function query($id, $start_date, $end_date, $metrics, $others = array()) {
-		return $this->service->data_ga->get($id, $start_date, $end_date, $metrics, $others);
-	}
+        return $this;
+    }
+
+    public function query($id, $start_date, $end_date, $metrics, $others = [])
+    {
+        return $this->service->data_ga->get($id, $start_date, $end_date, $metrics, $others);
+    }
 
     /**
      * Runs analytics query calls in batch mode
      * It accepts an array of queries as specified by the parameters of the Analytics::query function
-     * With an additional optional parameter named key, which is used to identify the results for a specific object
+     * With an additional optional parameter named key, which is used to identify the results for a specific object.
      *
      * Returns an array with object keys as response-KEY where KEY is the key you specified or a random key returned
      * from analytics.
+     *
      * @param array $queries
+     *
      * @return array|null
      */
-    public function batchQueries(array $queries) {
+    public function batchQueries(array $queries)
+    {
 
         /*
          * Set the client to use batch mode
@@ -60,7 +72,7 @@ class Analytics {
             $key = array_pull($query, 'key');
 
             // call the original query method to get the request object
-            $req = call_user_func_array(__NAMESPACE__ .'\Analytics::query' ,$query);
+            $req = call_user_func_array(__NAMESPACE__.'\Analytics::query', $query);
 
             $batch->add($req, $key);
         }
@@ -73,46 +85,53 @@ class Analytics {
         return $results;
     }
 
-	public function segments() {
-		return $this->service->management_segments;
-	}
+    public function segments()
+    {
+        return $this->service->management_segments;
+    }
 
-	public function accounts() {
-		return $this->service->management_accounts;
-	}
+    public function accounts()
+    {
+        return $this->service->management_accounts;
+    }
 
-	public function goals() {
-		return $this->service->management_goals;
-	}
+    public function goals()
+    {
+        return $this->service->management_goals;
+    }
 
-	public function profiles() {
-		return $this->service->management_profiles;
-	}
+    public function profiles()
+    {
+        return $this->service->management_profiles;
+    }
 
-	public function webproperties() {
-		return $this->service->management_webproperties;
-	}
+    public function webproperties()
+    {
+        return $this->service->management_webproperties;
+    }
 
-	public function getAllSitesIds() {
-		if (empty($this->site_ids)) {
-			$sites = $this->service->management_profiles->listManagementProfiles("~all", "~all");
-			foreach($sites['items'] as $site) {
-				$this->site_ids[$site['websiteUrl']] = 'ga:' . $site['id'];
-			}
-		}
+    public function getAllSitesIds()
+    {
+        if (empty($this->site_ids)) {
+            $sites = $this->service->management_profiles->listManagementProfiles('~all', '~all');
+            foreach ($sites['items'] as $site) {
+                $this->site_ids[$site['websiteUrl']] = 'ga:'.$site['id'];
+            }
+        }
 
-		return $this->site_ids;
-	}
+        return $this->site_ids;
+    }
 
-	public function getSiteIdByUrl($url) {
-		if (!isset($this->site_ids[$url])) {
-			$this->getAllSitesIds();
-		}
+    public function getSiteIdByUrl($url)
+    {
+        if (!isset($this->site_ids[$url])) {
+            $this->getAllSitesIds();
+        }
 
-		if (isset($this->site_ids[$url])) {
-			return $this->site_ids[$url];
-		}
+        if (isset($this->site_ids[$url])) {
+            return $this->site_ids[$url];
+        }
 
-		throw new \Exception("Site $url is not present in your Analytics account.");
-	}
+        throw new \Exception("Site $url is not present in your Analytics account.");
+    }
 }
