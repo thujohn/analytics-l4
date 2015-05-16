@@ -29,7 +29,7 @@ class AnalyticsServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->app->bind('Thujohn\Analytics\Analytics', function ($app) {
-			if(!\File::exists($app['config']->get('analytics::certificate_path')))
+			if(!$app['files']->exists($app['config']->get('analytics::certificate_path')))
 			{
 				throw new \Exception("Can't find the .p12 certificate in: " . $app['config']->get('analytics::certificate_path'));
 			}
