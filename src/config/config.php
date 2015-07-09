@@ -69,4 +69,17 @@ return array(
 	*/
 
 	'use_objects'      => true,
+
+
+	/*
+	|--------------------------------------------------------------------------
+	| Google apiclient config
+	|--------------------------------------------------------------------------
+	*/
+
+	'apiclient_config'	=> array( 
+		'Google_Cache_File' => array(
+          'directory' => storage_path() . '/Google_Client'
+        )
+	),
 );
