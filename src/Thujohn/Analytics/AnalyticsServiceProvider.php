@@ -51,6 +51,9 @@ class AnalyticsServiceProvider extends ServiceProvider {
 				)
 			);
 
+			foreach ($app['config']->get('analytics::apiclient_config') as $key => $value) 
+				$client->setClassConfig($key, $value);
+
 			return new Analytics($client);
 		});
 

@@ -69,4 +69,25 @@ return array(
 	*/
 
 	'use_objects'      => true,
+
+
+	/*
+	|--------------------------------------------------------------------------
+	| Google API client config
+	|--------------------------------------------------------------------------
+	|
+	| Povides Google API client configuration.
+	| (https://github.com/google/google-api-php-client)
+	| 
+	| Example:
+	| 	'apiclient_config'	=> array( 
+	|		'application_name' 	= "My App",
+	|		'Google_Cache_File' => array(
+	|			'directory' => storage_path() . '/Google_Client'
+	|		)
+	|	),
+	*/
+
+	'apiclient_config'	=> array( 
+	),
 );
