@@ -83,8 +83,8 @@ return array(
 	| 	'apiclient_config'	=> array( 
 	|		'application_name' 	= "My App",
 	|		'Google_Cache_File' => array(
-    |			'directory' => storage_path() . '/Google_Client'
-    |		)
+	|			'directory' => storage_path() . '/Google_Client'
+	|		)
 	|	),
 	*/
 
