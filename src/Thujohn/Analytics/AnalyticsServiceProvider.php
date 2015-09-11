@@ -35,8 +35,16 @@ class AnalyticsServiceProvider extends ServiceProvider {
 			}
 
 			$config = array(
-				'oauth2_client_id' => $app['config']->get('analytics::client_id'),
-				'use_objects' => $app['config']->get('analytics::use_objects'),
+
+				'Google_Auth_OAuth2' => [
+
+						'client_id' => $app['config']->get('analytics::client_id')
+					],
+
+				'Google_Cache_File' => [
+
+						'directory' => $app['config']->get('analytics::cache_directory')
+					],
 			);
 
 			$client = new \Google_Client($config);
